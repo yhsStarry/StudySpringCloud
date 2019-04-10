@@ -1,4 +1,4 @@
-package com.yhs.product.service;
+package com.yhs.product.repository;
 
 import com.yhs.product.dto.Product;
 import org.junit.Assert;
@@ -12,14 +12,15 @@ import java.util.List;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class IProductServiceTest {
+public class ProductRepositoryTest {
 
     @Autowired
-    private IProductService productService;
+    private ProductRepository productService;
 
     @Test
-    public void selectAllProduct() throws Exception{
-        List<Product> productList = productService.selectAllProduct("0");
+    public void queryByProductStatus() throws Exception{
+        List<Product> productList = productService.queryByProductStatus(0);
         Assert.assertTrue(productList.size()>0);
     }
+
 }
