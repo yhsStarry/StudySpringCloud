@@ -1,3 +1,4 @@
+#指定应用名，服务名
 spring:
   application:
     name: eureka
