@@ -29,6 +29,7 @@ public class OrderMasterRepositoryTest extends OrderApplicationTests {
         orderMaster.setOrderStatus(OrderStatusEnum.NEW.getCode());
         orderMaster.setPayStatus(PayStatusEnum.WAIT.getCode());
 
+
         OrderMaster result = orderMasterRepository.save(orderMaster);
         Assert.assertTrue(result != null);
 
