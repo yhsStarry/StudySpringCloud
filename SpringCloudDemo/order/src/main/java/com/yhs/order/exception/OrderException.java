@@ -1,5 +1,7 @@
 package com.yhs.order.exception;
 
+import com.yhs.order.enums.ResultEnum;
+
 public class OrderException extends RuntimeException{
 
     private Integer code;
@@ -7,5 +9,10 @@ public class OrderException extends RuntimeException{
     public OrderException(Integer code, String message){
         super(message);
         this.code = code;
+    }
+
+    public OrderException(ResultEnum resultEnum) {
+        super(resultEnum.getMessage());
+        this.code = resultEnum.getCode();
     }
 }

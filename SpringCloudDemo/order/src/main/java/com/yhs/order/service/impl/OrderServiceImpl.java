@@ -6,19 +6,25 @@ import com.yhs.order.dto.OrderDetail;
 import com.yhs.order.dto.OrderMaster;
 import com.yhs.order.enums.OrderStatusEnum;
 import com.yhs.order.enums.PayStatusEnum;
+import com.yhs.order.enums.ResultEnum;
+import com.yhs.order.exception.OrderException;
 import com.yhs.order.form.OrderForm;
 import com.yhs.order.repository.OrderDetailRepository;
 import com.yhs.order.repository.OrderMasterRepository;
 import com.yhs.order.service.IOrderService;
 import com.yhs.order.tmpl.OrderTmpl;
 import com.yhs.order.utils.KeyUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+@Slf4j
+@Service
 public class OrderServiceImpl implements IOrderService {
 
     @Autowired
@@ -44,6 +50,13 @@ public class OrderServiceImpl implements IOrderService {
     //orderForm转换为OrderTmpl的方法
     public OrderTmpl orderFormToOrderTmpl(OrderForm orderForm){
         OrderTmpl orderTmpl = new OrderTmpl();
+        OrderMaster orderMaster = new OrderMaster();
+        orderMaster.setBuyerName(orderForm.getName());
+        orderMaster.setBuyerPhone(orderForm.getPhone());
+        orderMaster.setBuyerAddress(orderForm.getAddress());
+        orderMaster.setBuyerOpenid(orderForm.getOpenid());
+        orderTmpl.setOrderMaster(orderMaster);
+
         orderTmpl.getOrderMaster().setBuyerName(orderForm.getName());
         orderTmpl.getOrderMaster().setBuyerPhone(orderForm.getPhone());
         orderTmpl.getOrderMaster().setBuyerAddress(orderForm.getAddress());
@@ -53,12 +66,14 @@ public class OrderServiceImpl implements IOrderService {
 
         Gson gson = new Gson();
         try {
-            gson.fromJson(orderForm.getItems(),
+            orderDetails = gson.fromJson(orderForm.getItems(),
                     new TypeToken<List<OrderDetail>>(){}.getType());
         } catch (Exception e){
-
+            log.error("【json转换】错误, string={}", orderForm.getItems());
+            throw new OrderException(ResultEnum.PARAM_ERROR);
         }
-        return null;
+        orderTmpl.setOrderDetailList(orderDetails);
+        return orderTmpl;
     }
 
 }
