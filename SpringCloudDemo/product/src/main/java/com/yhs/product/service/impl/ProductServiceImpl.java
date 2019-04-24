@@ -19,4 +19,9 @@ public class ProductServiceImpl implements IProductService {
     public List<Product> selectAllProduct(String id) {
         return productRepository.queryByProductStatus(ProductStatusEnum.ZERO.getCode());
     }
+
+    @Override
+    public List<Product> findListForOrder(List<String> productIdList) {
+        return productRepository.findByProductIdIn(productIdList);
+    }
 }

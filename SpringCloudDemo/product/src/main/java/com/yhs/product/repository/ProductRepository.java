@@ -15,4 +15,6 @@ public interface ProductRepository extends JpaRepository<Product, String> {
      * @return List集合
      */
     List<Product> queryByProductStatus(Integer productStatus);
+
+    List<Product> findByProductIdIn(List<String> productList);
 }

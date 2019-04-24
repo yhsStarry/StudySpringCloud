@@ -38,29 +38,24 @@ public class OrderServiceImpl implements IOrderService {
 
         //订单入库
         OrderMaster orderMaster = new OrderMaster();
-        orderTmpl.getOrderMaster().setOrderId(KeyUtil.genUniqueKey());
-        BeanUtils.copyProperties(orderTmpl.getOrderMaster(), orderMaster);
+        orderTmpl.setOrderId(KeyUtil.genUniqueKey());
+        BeanUtils.copyProperties(orderTmpl, orderMaster);
         orderMaster.setOrderAmount(new BigDecimal(5));
         orderMaster.setOrderStatus(OrderStatusEnum.NEW.getCode());
         orderMaster.setPayStatus(PayStatusEnum.WAIT.getCode());
 
-
-        return null;
+        orderMasterRepository.save(orderMaster);
+        return orderTmpl;
     }
     //orderForm转换为OrderTmpl的方法
     public OrderTmpl orderFormToOrderTmpl(OrderForm orderForm){
         OrderTmpl orderTmpl = new OrderTmpl();
-        OrderMaster orderMaster = new OrderMaster();
-        orderMaster.setBuyerName(orderForm.getName());
-        orderMaster.setBuyerPhone(orderForm.getPhone());
-        orderMaster.setBuyerAddress(orderForm.getAddress());
-        orderMaster.setBuyerOpenid(orderForm.getOpenid());
-        orderTmpl.setOrderMaster(orderMaster);
 
-        orderTmpl.getOrderMaster().setBuyerName(orderForm.getName());
-        orderTmpl.getOrderMaster().setBuyerPhone(orderForm.getPhone());
-        orderTmpl.getOrderMaster().setBuyerAddress(orderForm.getAddress());
-        orderTmpl.getOrderMaster().setBuyerOpenid(orderForm.getOpenid());
+
+        orderTmpl.setBuyerName(orderForm.getName());
+        orderTmpl.setBuyerPhone(orderForm.getPhone());
+        orderTmpl.setBuyerAddress(orderForm.getAddress());
+        orderTmpl.setBuyerOpenid(orderForm.getOpenid());
 
         List<OrderDetail> orderDetails = new ArrayList<>();
 

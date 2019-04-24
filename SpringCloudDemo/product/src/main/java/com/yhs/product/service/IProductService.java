@@ -12,4 +12,11 @@ public interface IProductService {
      * @return list
      */
     List<Product> selectAllProduct(String id);
+
+    /**
+     *
+     * @param productIdList
+     * @return
+     */
+    List<Product> findListForOrder(List<String> productIdList);
 }

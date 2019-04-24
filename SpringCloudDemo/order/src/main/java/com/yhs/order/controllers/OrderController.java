@@ -43,13 +43,13 @@ public class OrderController {
         //数据转换
         OrderTmpl orderTmpl = orderService.orderFormToOrderTmpl(orderForm);
         if (CollectionUtils.isEmpty(orderTmpl.getOrderDetailList())) {
-            log.error("");
+            log.error("创建订单】购物车信息为空");
             throw new OrderException(ResultEnum.CART_EMPTY);
         }
 
         OrderTmpl result = orderService.create(orderTmpl);
         Map<String, String> map = new HashMap<>();
-        map.put("orderId", result.getOrderMaster().getOrderId());
+        map.put("orderId", result.getOrderId());
         return ResultVoUtil.success(map);
     }
 }
