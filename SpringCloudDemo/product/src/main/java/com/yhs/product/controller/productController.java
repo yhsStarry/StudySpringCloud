@@ -4,6 +4,7 @@ import com.yhs.product.dto.Product;
 import com.yhs.product.dto.ProductCategory;
 import com.yhs.product.service.IProductCategoryService;
 import com.yhs.product.service.IProductService;
+import com.yhs.product.tmpl.CartTmpl;
 import com.yhs.product.utils.ResultVoUtil;
 import com.yhs.product.vo.ProductCategoryVo;
 import com.yhs.product.vo.ProductVo;
@@ -84,5 +85,23 @@ public class productController {
 
         return productService.findListForOrder(productIdList);
     }
+
+    @PostMapping("/decreastStock")
+    public void decreastStock(@RequestBody List<CartTmpl> cartTmplList) {
+        productService.decreaseSrock(cartTmplList);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 }

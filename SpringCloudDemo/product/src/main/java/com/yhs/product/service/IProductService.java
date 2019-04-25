@@ -1,6 +1,7 @@
 package com.yhs.product.service;
 
 import com.yhs.product.dto.Product;
+import com.yhs.product.tmpl.CartTmpl;
 
 import java.util.List;
 
@@ -19,4 +20,10 @@ public interface IProductService {
      * @return
      */
     List<Product> findListForOrder(List<String> productIdList);
+
+    /**
+     * 扣库尊
+     * @param cartTmpls
+     */
+    void decreaseSrock(List<CartTmpl> cartTmpls);
 }

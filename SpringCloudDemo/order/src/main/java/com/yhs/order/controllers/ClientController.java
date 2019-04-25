@@ -2,6 +2,7 @@ package com.yhs.order.controllers;
 
 import com.yhs.order.client.ProductClient;
 import com.yhs.order.dto.Product;
+import com.yhs.order.tmpl.CartTmpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,5 +26,11 @@ public class ClientController {
         log.info("response={}", productList);
         return "ok";
     }
+    @GetMapping("/productDecreaseStock")
+    public String productDecreaseStock() {
+        productClient.decreastStock(Arrays.asList(new CartTmpl("157875196366160022", 2)));
+        return "success";
+    }
+
 
 }

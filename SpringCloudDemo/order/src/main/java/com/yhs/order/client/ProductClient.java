@@ -2,6 +2,7 @@ package com.yhs.order.client;
 
 
 import com.yhs.order.dto.Product;
+import com.yhs.order.tmpl.CartTmpl;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,4 +18,7 @@ public interface ProductClient {
 
     @PostMapping("/product/selectForOrder")
     List<Product> selectForOrder(@RequestBody List<String> productIdList);
+
+    @PostMapping("/product/decreastStock")
+    void decreastStock(@RequestBody List<CartTmpl> cartTmplList);
 }
